@@ -1,0 +1,175 @@
+# ============================================================
+# CivicGrid — Root .gitignore
+# ============================================================
+
+# -----------------------------------------------
+# 1. Security & Secrets (NEVER COMMIT)
+# -----------------------------------------------
+.env
+.env.*
+!.env.example
+!*.env.example
+*.env
+*.env.local
+*.env.production
+*.env.development
+
+# Credentials, Certificates & Private Keys
+*.key
+*.pem
+*.crt
+*.cer
+*.p12
+*.pfx
+*.pkcs12
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.pub
+secrets/
+credentials/
+*.credentials
+
+# Cloud & Service Account keys (Firebase, GCP, AWS)
+serviceAccountKey*.json
+firebase-adminsdk*.json
+*-firebase-adminsdk-*.json
+google-services.json
+GoogleService-Info.plist
+*.json.key
+
+# -----------------------------------------------
+# 2. Local Databases & Persistence (Contains Local Data / PII)
+# -----------------------------------------------
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
+data/
+backend/data/
+*.rdb
+
+# -----------------------------------------------
+# 3. Python Backend & Virtual Environments
+# -----------------------------------------------
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+*/.egg-info/
+.eggs/
+dist/
+build/
+sdist/
+develop-eggs/
+downloads/
+eggs/
+parts/
+var/
+*.egg
+*.manifest
+*.spec
+
+# Python Testing & Code Quality
+.pytest_cache/
+*/.pytest_cache/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# -----------------------------------------------
+# 4. Frontend (Node / Vite / React)
+# -----------------------------------------------
+node_modules/
+*/node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+dist-ssr/
+frontend/dist-ssr/
+.vite/
+frontend/.vite/
+.cache/
+frontend/.cache/
+coverage/
+frontend/coverage/
+
+# Node logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -----------------------------------------------
+# 5. IDEs & Editors
+# -----------------------------------------------
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.example
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.fleet/
+.zed/
+
+# -----------------------------------------------
+# 6. Operating System Artifacts
+# -----------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# -----------------------------------------------
+# 7. OpenSpec & Local Agent Artifacts
+# -----------------------------------------------
+.agent/
+openspec/changes/
+!openspec/changes/
+openspec/changes/*
+!openspec/changes/archive/
+!openspec/changes/archive/**
+
+# -----------------------------------------------
+# 8. Temporary & Backup Files
+# -----------------------------------------------
+*.bak
+*.tmp
+*.temp
+*.orig
+
+openspec/
+.github/
+DEMO_SCRIPT_NARRATION.txt
+PROJECT_REPORT.md

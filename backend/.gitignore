@@ -1,0 +1,46 @@
+# -----------------------------------------------
+# Backend .gitignore
+# -----------------------------------------------
+
+# Secrets & Environment
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Local Databases (Contains Citizen Data / PII)
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Python Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python Runtime & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Build & Packaging
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
