@@ -17,22 +17,23 @@ import MapPage from './pages/MapPage';
 import SettingsPage from './pages/SettingsPage';
 import { PublicTrackPage } from './pages/PublicTrackPage';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 3,
-      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 15000),
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
-
 import { LoginPage } from './pages/LoginPage';
 import { CitizenPortal } from './pages/CitizenPortal';
 import { OfficerPortal } from './pages/OfficerPortal';
 import { AdminPortal } from './pages/AdminPortal';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { RoleProvider } from './context/RoleContext';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+      retryDelay: (attemptIndex) =>
+        Math.min(1000 * 2 ** attemptIndex, 15000),
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function AppContent() {
   const { isDark } = useTheme();
@@ -41,7 +42,9 @@ function AppContent() {
   return (
     <ConfigProvider
       theme={{
-        algorithm: isDark ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm,
+        algorithm: isDark
+          ? antTheme.darkAlgorithm
+          : antTheme.defaultAlgorithm,
         token: {
           colorPrimary: palette.primary,
           colorBgBase: palette.background,
@@ -84,36 +87,70 @@ function AppContent() {
           <Routes>
             <Route element={<AppShell />}>
               <Route path="/" element={<LandingPage />} />
+
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/citizen" element={
-                <ProtectedRoute allowedRoles={['citizen']}>
-                  <CitizenPortal />
-                </ProtectedRoute>
-              } />
-              <Route path="/officer" element={
-                <ProtectedRoute allowedRoles={['officer']}>
-                  <OfficerPortal />
-                </ProtectedRoute>
-              } />
-              <Route path="/admin" element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminPortal />
-                </ProtectedRoute>
-              } />
+
+              <Route
+                path="/citizen"
+                element={
+                  <ProtectedRoute allowedRoles={['citizen']}>
+                    <CitizenPortal />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/officer"
+                element={
+                  <ProtectedRoute allowedRoles={['officer']}>
+                    <OfficerPortal />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminPortal />
+                  </ProtectedRoute>
+                }
+              />
+
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/analytics" element={<AnalyticsPage />} />
               <Route path="/complaints" element={<ComplaintsPage />} />
-              <Route path="/complaints/:id" element={<ComplaintDetailsPage />} />
-              <Route path="/submit" element={
-                <ProtectedRoute allowedRoles={['citizen']}>
-                  <SubmitComplaintPage />
-                </ProtectedRoute>
-              } />
+              <Route
+                path="/complaints/:id"
+                element={<ComplaintDetailsPage />}
+              />
+
+              <Route
+                path="/submit"
+                element={
+                  <ProtectedRoute allowedRoles={['citizen']}>
+                    <SubmitComplaintPage />
+                  </ProtectedRoute>
+                }
+              />
+
               <Route path="/map" element={<MapPage />} />
               <Route path="/settings" element={<SettingsPage />} />
-              <Route path="/public-tracker" element={<PublicTrackPage />} />
-              <Route path="/public-tracker/:token" element={<PublicTrackPage />} />
-              <Route path="/track/:token" element={<PublicTrackPage />} />
+
+              <Route
+                path="/public-tracker"
+                element={<PublicTrackPage />}
+              />
+
+              <Route
+                path="/public-tracker/:token"
+                element={<PublicTrackPage />}
+              />
+
+              <Route
+                path="/track/:token"
+                element={<PublicTrackPage />}
+              />
             </Route>
           </Routes>
         </BrowserRouter>
@@ -122,20 +159,12 @@ function AppContent() {
   );
 }
 
-import { APIProvider } from '@vis.gl/react-google-maps';
-
-const MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
-
-import { RoleProvider } from './context/RoleContext';
-
 function App() {
   return (
     <ThemeProvider>
       <I18nProvider>
         <RoleProvider>
-          <APIProvider apiKey={MAPS_API_KEY} libraries={['places']}>
-            <AppContent />
-          </APIProvider>
+          <AppContent />
         </RoleProvider>
       </I18nProvider>
     </ThemeProvider>
